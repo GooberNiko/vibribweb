@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vib-Ribbon Web</title>
+<meta name="description" content="A web reimplementation of Vib-Ribbon that runs on your own disc image.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="stage">
+  <canvas id="screen" aria-label="Game screen"></canvas>
+
+  <!-- load -->
+  <section class="panel" id="load" hidden>
+    <h1 class="logo">vib<span>-</span>ribbon <small>web</small></h1>
+    <p class="lede">Bring your own disc. This page holds no part of the game: it reads the
+      models, script and music from a Vib-Ribbon disc image you own.</p>
+    <label class="drop" id="drop" tabindex="0">
+      <input type="file" id="discInput" multiple accept=".zip,.cue,.bin,.img">
+      <strong>Drop your disc image here</strong>
+      <span>a <code>.zip</code>, or the <code>.cue</code> with all its <code>.bin</code> tracks</span>
+    </label>
+    <label class="check"><input type="checkbox" id="remember" checked> Remember this disc in this browser</label>
+    <p class="status" id="loadStatus" role="status"></p>
+    <p class="fine">Tested with the PAL disc (SCES-02873). Everything stays on your device.</p>
+  </section>
+
+  <!-- under the game's own menus -->
+  <div class="hint" id="titleHint" hidden>
+    <span><kbd>↑</kbd><kbd>↓</kbd> choose · <kbd>Enter</kbd> ok · <kbd>Esc</kbd> back</span>
+    <span>in play: <kbd>←</kbd> block · <kbd>↓</kbd> pit · <kbd>→</kbd> loop · <kbd>↑</kbd> wave</span>
+    <button id="toEditor" class="gear" hidden>level editor</button>
+    <button id="toSettings" class="gear" aria-label="Settings">settings</button>
+  </div>
+
+  <!-- your music: the CD swap -->
+  <section class="panel menu" id="music" hidden>
+    <h2>Change CD</h2>
+    <label class="drop small" id="musicDrop" tabindex="0">
+      <input type="file" id="musicInput" multiple accept="audio/*,.mp3,.ogg,.flac,.wav,.m4a,.opus">
+      <strong>Drop songs here</strong>
+      <span>mp3, ogg, flac, wav… the ribbon is built from the sound itself</span>
+    </label>
+    <ol class="tracks" id="trackList"></ol>
+    <nav class="list row">
+      <button id="musicDone">Done</button>
+      <button id="clearMusic">Clear</button>
+    </nav>
+    <p class="status" id="musicStatus" role="status"></p>
+  </section>
+
+  <!-- options -->
+  <section class="panel menu" id="options" hidden>
+    <h2>Settings</h2>
+    <div class="form">
+      <label>Audio offset <input type="range" id="optOffset" min="-200" max="200" step="5" value="0"> <output id="optOffsetOut">0 ms</output></label>
+      <label>Language <select id="optLang"></select></label>
+      <label class="check"><input type="checkbox" id="optWide"> Widescreen (16:9)</label>
+      <button id="forgetDisc" class="link">Forget the remembered disc</button>
+    </div>
+    <nav class="list row"><button class="back">Back</button></nav>
+  </section>
+
+  <!-- pause -->
+  <section class="panel menu small-panel" id="pause" hidden>
+    <h2>Paused</h2>
+    <nav class="list">
+      <button id="resume">Continue</button>
+      <button id="quit">Quit</button>
+    </nav>
+  </section>
+
+  <!-- when something goes wrong -->
+  <section class="panel menu small-panel" id="result" hidden>
+    <h2 id="resultTitle">Clear</h2>
+    <dl class="score" id="resultScore"></dl>
+    <ol class="hiscores" id="hiscores"></ol>
+    <nav class="list" id="resultNav"></nav>
+  </section>
+
+  <!-- the level editor -->
+  <section id="editor" hidden></section>
+
+  <div class="loading" id="busy" hidden><span></span></div>
+</div>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

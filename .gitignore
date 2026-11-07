@@ -1,0 +1,7 @@
+# never commit game data
+*.zip
+*.bin
+*.cue
+*.img
+*.iso
+*.chd
